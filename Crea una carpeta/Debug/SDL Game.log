@@ -1,0 +1,69 @@
+﻿  Application.cpp
+  log.cpp
+  Main.cpp
+  ModuleAudio.cpp
+  ModuleInput.cpp
+  ModulePhysics.cpp
+C:\Users\maksymp\Desktop\Crea una carpeta\ModulePhysics.cpp(253,8): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\maksymp\Desktop\Crea una carpeta\ModulePhysics.cpp(334,23): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\maksymp\Desktop\Crea una carpeta\ModulePhysics.cpp(335,25): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\maksymp\Desktop\Crea una carpeta\ModulePhysics.cpp(388,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\maksymp\Desktop\Crea una carpeta\ModulePhysics.cpp(491,13): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\maksymp\Desktop\Crea una carpeta\ModulePhysics.cpp(492,13): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\maksymp\Desktop\Crea una carpeta\ModulePhysics.cpp(498,27): warning C4244: 'return': conversion from 'float32' to 'int', possible loss of data
+  ModulePlayer.cpp
+  ModuleRender.cpp
+  ModuleSceneIntro.cpp
+C:\Users\maksymp\Desktop\Crea una carpeta\ModuleSceneIntro.cpp(191,45): warning C4244: 'argument': conversion from 'TYPE' to 'TYPE', possible loss of data
+          with
+          [
+              TYPE=int
+          ]
+          and
+          [
+              TYPE=float
+          ]
+C:\Users\maksymp\Desktop\Crea una carpeta\ModuleSceneIntro.cpp(191,30): warning C4244: 'argument': conversion from 'TYPE' to 'TYPE', possible loss of data
+          with
+          [
+              TYPE=int
+          ]
+          and
+          [
+              TYPE=float
+          ]
+C:\Users\maksymp\Desktop\Crea una carpeta\ModuleSceneIntro.cpp(193,18): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\maksymp\Desktop\Crea una carpeta\ModuleSceneIntro.cpp(196,70): warning C4244: 'argument': conversion from 'TYPE' to 'int', possible loss of data
+          with
+          [
+              TYPE=float
+          ]
+C:\Users\maksymp\Desktop\Crea una carpeta\ModuleSceneIntro.cpp(196,47): warning C4244: 'argument': conversion from 'TYPE' to 'int', possible loss of data
+          with
+          [
+              TYPE=float
+          ]
+C:\Users\maksymp\Desktop\Crea una carpeta\ModuleSceneIntro.cpp(200,138): warning C4244: 'argument': conversion from 'TYPE' to 'int', possible loss of data
+          with
+          [
+              TYPE=float
+          ]
+C:\Users\maksymp\Desktop\Crea una carpeta\ModuleSceneIntro.cpp(200,96): warning C4244: 'argument': conversion from 'TYPE' to 'int', possible loss of data
+          with
+          [
+              TYPE=float
+          ]
+C:\Users\maksymp\Desktop\Crea una carpeta\ModuleSceneIntro.cpp(200,57): warning C4244: 'argument': conversion from 'TYPE' to 'int', possible loss of data
+          with
+          [
+              TYPE=float
+          ]
+C:\Users\maksymp\Desktop\Crea una carpeta\ModuleSceneIntro.cpp(200,34): warning C4244: 'argument': conversion from 'TYPE' to 'int', possible loss of data
+          with
+          [
+              TYPE=float
+          ]
+  ModuleTextures.cpp
+  ModuleWindow.cpp
+  Generating Code...
+  SDL Game.vcxproj -> C:\Users\maksymp\Desktop\Crea una carpeta\Debug\Box2D - Tutorial.exe
