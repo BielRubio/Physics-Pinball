@@ -165,7 +165,7 @@ update_status ModuleSceneIntro::Update()
 
 	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN)
 	{
-		flipperLeft->body->ApplyAngularImpulse(50, true); 
+		flipperLeft->body->ApplyAngularImpulse(-50,true); 
 	}
 
 	// Prepare for raycast ------------------------------------------------------
