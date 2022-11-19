@@ -411,7 +411,68 @@ PhysBody* ModulePhysics::CreateChain(int x, int y, int* points, int size)
 	// Return our PhysBody class
 	return pbody;
 }
+PhysBody* ModulePhysics::CreateFlipper(int id, int x, int y, int* points, int size, int anchorX, int anchorY, float speed, float maxSpeed, float lowerAngle, float upperAngle, b2Body* bodyA) {
+	PhysBody* flipper = CreateChain(x, y, points, size);
+	bodyA->SetType(b2_staticBody);
 
+	b2BodyDef body;
+	body.type = b2_dynamicBody;
+	b2Body* b = App->physics->world->CreateBody(&body);
+
+	b2PolygonShape box;
+	box.SetAsBox(PIXEL_TO_METERS(50), PIXEL_TO_METERS(25));
+
+	b2FixtureDef fixture;
+	fixture.shape = &box;
+	fixture.density = 1.0f;
+
+	b->CreateFixture(&fixture);
+
+	b2MassData* massdata = new b2MassData();
+	b->GetMassData(massdata);
+
+	flipper->body->SetMassData(massdata);
+
+	b2RevoluteJointDef joint;
+	joint.bodyA = bodyA;
+	joint.bodyB = flipper->body;
+	joint.enableLimit = true;
+	joint.lowerAngle = lowerAngle * b2_pi;
+	joint.upperAngle = upperAngle * b2_pi;
+	joint.enableMotor = true;
+	joint.maxMotorTorque = speed;
+	joint.motorSpeed = maxSpeed;
+	joint.localAnchorA = { 0,0 };
+	joint.localAnchorB = { PIXEL_TO_METERS(anchorX), PIXEL_TO_METERS(anchorY) };
+	
+	return flipper;
+}
+PhysBody* ModulePhysics::CreateBumper(int x, int y, int radius) {
+
+	b2BodyDef body;
+	body.type = b2_staticBody;
+	body.position.Set(PIXEL_TO_METERS(x), PIXEL_TO_METERS(y));
+
+
+	b2Body* b = world->CreateBody(&body);
+
+	b2CircleShape shape;
+	shape.m_radius = PIXEL_TO_METERS(radius);
+	b2FixtureDef fixture;
+	fixture.shape = &shape;
+	fixture.density = 1.0f;
+	fixture.friction = 0.0f;
+	fixture.restitution = 1.0f;
+
+	b->CreateFixture(&fixture);
+	PhysBody* pbody = new PhysBody;
+	pbody->body = b;
+	b->SetUserData(pbody);
+
+	pbody->width = pbody->height = radius * 2;
+
+	return pbody;
+}
 // Callback function to collisions with Box2D
 void ModulePhysics::BeginContact(b2Contact* contact)
 {
