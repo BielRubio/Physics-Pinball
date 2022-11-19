@@ -48,7 +48,28 @@ bool ModuleSceneIntro::Start()
 	// In ModulePhysics::PreUpdate(), we iterate over all sensors and (if colliding) we call the function ModuleSceneIntro::OnCollision()
 	lower_ground_sensor->listener = this;
 
+	CreateBoard(); 
+
 	return ret;
+}
+
+void ModuleSceneIntro::CreateBoard() {
+
+	int FlipperL[20] = {
+		9, 2,
+		3, 5,
+		1, 11,
+		3, 17,
+		8, 21,
+		46, 19,
+		50, 17,
+		52, 12,
+		50, 8,
+		46, 6
+	};
+
+	flipperLeftAnchor = App->physics->CreateCircle(120, 673, 6);
+	flipperLeft = App->physics->CreateFlipper(1, 112, 666, FlipperL, 20, 11, 11, 20.0f, 20.0f, -0.15f, 0.15f, flipperLeftAnchor->body);
 }
 
 bool ModuleSceneIntro::CleanUp()
@@ -140,6 +161,11 @@ update_status ModuleSceneIntro::Update()
 		};
 
 		ricks.add(App->physics->CreateChain(App->input->GetMouseX(), App->input->GetMouseY(), rick_head, 64));
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN)
+	{
+		flipperLeft->body->ApplyAngularImpulse(50, true); 
 	}
 
 	// Prepare for raycast ------------------------------------------------------

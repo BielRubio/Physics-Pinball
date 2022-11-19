@@ -3,6 +3,7 @@
 #include "ModuleInput.h"
 #include "ModuleRender.h"
 #include "ModulePhysics.h"
+#include "ModuleSceneIntro.h"
 #include "p2Point.h"
 #include "math.h"
 
@@ -411,6 +412,7 @@ PhysBody* ModulePhysics::CreateChain(int x, int y, int* points, int size)
 	// Return our PhysBody class
 	return pbody;
 }
+
 PhysBody* ModulePhysics::CreateFlipper(int id, int x, int y, int* points, int size, int anchorX, int anchorY, float speed, float maxSpeed, float lowerAngle, float upperAngle, b2Body* bodyA) {
 	PhysBody* flipper = CreateChain(x, y, points, size);
 	bodyA->SetType(b2_staticBody);
@@ -445,8 +447,12 @@ PhysBody* ModulePhysics::CreateFlipper(int id, int x, int y, int* points, int si
 	joint.localAnchorA = { 0,0 };
 	joint.localAnchorB = { PIXEL_TO_METERS(anchorX), PIXEL_TO_METERS(anchorY) };
 	
+	App->scene_intro->flipper_joints[id] = (b2RevoluteJoint*)App->physics->world->CreateJoint(&joint);
+
+
 	return flipper;
 }
+
 PhysBody* ModulePhysics::CreateBumper(int x, int y, int radius) {
 
 	b2BodyDef body;

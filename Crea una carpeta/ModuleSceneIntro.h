@@ -5,6 +5,7 @@
 #include "Globals.h"
 
 class PhysBody;
+class b2RevoluteJoint;
 
 class ModuleSceneIntro : public Module
 {
@@ -19,6 +20,7 @@ public:
 	update_status Update();
 	bool CleanUp();
 	void OnCollision(PhysBody* bodyA, PhysBody* bodyB);
+	void CreateBoard(); 
 
 public:
 
@@ -27,6 +29,12 @@ public:
 	p2List<PhysBody*> boxes;
 	p2List<PhysBody*> ricks;
 
+	PhysBody* flipperLeft; 
+	PhysBody* flipperLeftAnchor;
+	PhysBody* flipperRight;
+	PhysBody* flipperRightAnchor;
+
+	b2RevoluteJoint* flipper_joints[2]; 
 	// Lower ground sensor (will kill all objects passig through it)
 	PhysBody* lower_ground_sensor;
 	bool sensed;
