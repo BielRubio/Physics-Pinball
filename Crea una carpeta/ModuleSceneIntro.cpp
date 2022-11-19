@@ -33,6 +33,11 @@ bool ModuleSceneIntro::Start()
 	circle = App->textures->Load("pinball/wheel.png"); 
 	box = App->textures->Load("pinball/crate.png");
 	rick = App->textures->Load("pinball/rick_head.png");
+
+	map = App->textures->Load("pinball/map.png");
+	bg = App->textures->Load("pinball/bg.png");
+	bgOffset = 0;
+
 	bonus_fx = App->audio->LoadFx("pinball/bonus.wav");
 
 	// Create a big red sensor on the bottom of the screen.
@@ -55,6 +60,19 @@ bool ModuleSceneIntro::CleanUp()
 
 update_status ModuleSceneIntro::Update()
 {
+
+	//Draw BG
+	if (bgOffset >= 512) {
+		bgOffset = 0;
+	}
+	else {
+		bgOffset++;
+	}
+	App->renderer->Blit(bg, 0 - bgOffset, 0);
+
+	// Draw map
+	App->renderer->Blit(map,0,0);
+
 	// If user presses SPACE, enable RayCast
 	if(App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
 	{
