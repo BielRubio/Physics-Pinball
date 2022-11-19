@@ -449,7 +449,6 @@ PhysBody* ModulePhysics::CreateFlipper(int id, int x, int y, int* points, int si
 	
 	App->scene_intro->flipper_joints[id] = (b2RevoluteJoint*)App->physics->world->CreateJoint(&joint);
 
-
 	return flipper;
 }
 

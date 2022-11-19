@@ -68,8 +68,24 @@ void ModuleSceneIntro::CreateBoard() {
 		46, 6
 	};
 
+	int FlipperR[20] = {
+		42, 2,
+		49, 4,
+		51, 9,
+		51, 15,
+		48, 20,
+		42, 21,
+		5, 17,
+		2, 14,
+		2, 9,
+		6, 6,
+	};
+
 	flipperLeftAnchor = App->physics->CreateCircle(120, 673, 6);
 	flipperLeft = App->physics->CreateFlipper(1, 112, 666, FlipperL, 20, 11, 11, 20.0f, 20.0f, -0.15f, 0.15f, flipperLeftAnchor->body);
+
+	flipperRightAnchor = App->physics->CreateCircle(329, 673, 6);
+	flipperRight = App->physics->CreateFlipper(0, 321, 666, FlipperR, 20, 42, 11, 20.0f, -20.0f, -0.15f, 0.15f, flipperRightAnchor->body);
 }
 
 bool ModuleSceneIntro::CleanUp()
@@ -166,6 +182,11 @@ update_status ModuleSceneIntro::Update()
 	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN)
 	{
 		flipperLeft->body->ApplyAngularImpulse(-50,true); 
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN)
+	{
+		flipperRight->body->ApplyAngularImpulse(50, true);
 	}
 
 	// Prepare for raycast ------------------------------------------------------
