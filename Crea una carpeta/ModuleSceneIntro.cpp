@@ -283,7 +283,8 @@ update_status ModuleSceneIntro::Update()
 		ray.y = App->input->GetMouseY();
 	}
 	//Kicker
-	App->renderer->BlitText(200, 12, Font, "0000");
+	scoreS = App->renderer->IntToConstChar(score); // Transform int to const char* (isnt working)
+	App->renderer->BlitText(200, 12, Font, scoreS);
 	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT && kicker->GetPositionY() <= 546 && kickerCharge == false && gameOver == false) {
 		kicker->body->SetLinearVelocity({ 0,1 });
 	}

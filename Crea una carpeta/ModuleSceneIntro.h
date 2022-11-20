@@ -3,6 +3,10 @@
 #include "p2List.h"
 #include "p2Point.h"
 #include "Globals.h"
+#include <iostream>
+#include <sstream>
+using namespace std;
+
 
 class PhysBody;
 class b2RevoluteJoint;
@@ -79,6 +83,8 @@ public:
 	bool ray_on;
 
 	//Score
+	int score= 100; 
+	const char* scoreS;
 	int score; 
 	int previousScore; 
 	int highScore;  
