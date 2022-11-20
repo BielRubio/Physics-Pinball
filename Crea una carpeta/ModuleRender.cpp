@@ -297,3 +297,13 @@ void ModuleRender::BlitText(int x, int y, int font_id, const char* text) const
 	}
 }
 
+const char* ModuleRender::IntToConstChar(int A) {
+	stringstream ss;
+	ss << A;
+	string s;
+	s = ss.str();
+	const char* c;
+	c = s.c_str();
+	return c;
+}
+

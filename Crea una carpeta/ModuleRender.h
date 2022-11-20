@@ -1,7 +1,9 @@
 #pragma once
 #include "Module.h"
 #include "Globals.h"
-
+#include <iostream>
+#include <sstream>
+using namespace std;
 #include "SDL\include\SDL.h"
 #include "SDL\include\SDL_pixels.h"
 
@@ -43,6 +45,7 @@ public:
 	bool DrawCircle(int x1, int y1, int redius, Uint8 r, Uint8 g, Uint8 b, Uint8 a = 255, bool use_camera = true);
 	int Load(const char* texturePath, const char* characters, uint rows = 1);
 	void BlitText(int x, int y, int fontIndex, const char* text) const;
+	const char* IntToConstChar(int A);
 
 public:
 	SDL_Renderer* renderer;

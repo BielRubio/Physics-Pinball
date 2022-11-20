@@ -57,6 +57,8 @@ bool ModuleSceneIntro::Start()
 	lower_ground_sensor->type = COLLIDER::FALL;
 
 	score = 0; 
+	previousScore = 0; 
+	highScore = 0; 
 	ballsCounter = 3; 
 	comboCounter = 0; 
 
@@ -274,7 +276,8 @@ update_status ModuleSceneIntro::Update()
 	App->renderer->Blit(map,0,0);
 
 	//Kicker
-	App->renderer->BlitText(200, 12, Font, "0000");
+	scoreS = App->renderer->IntToConstChar(score); // Transform int to const char* (isnt working)
+	App->renderer->BlitText(200, 12, Font, scoreS);
 	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT && kicker->GetPositionY() <= 546 && kickerCharge == false && gameOver == false) {
 		kicker->body->SetLinearVelocity({ 0,1 });
 	}
@@ -454,9 +457,15 @@ void ModuleSceneIntro::UpdateBall() {
 void ModuleSceneIntro::GameOver() {
 
 	App->renderer->Blit(GOBG, 0, 0);
+	if (score > highScore) {
+		highScore = score; 
+	}
+	previousScore = score; 
 	if (App->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN) {
 		gameOver = false;
 		ballsCounter = 3;
+		score = 0; 
+		comboCounter = 0; 
 	}
 
 }
