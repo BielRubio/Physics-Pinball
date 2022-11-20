@@ -34,6 +34,10 @@ public:
 	PhysBody* flipperRight;
 	PhysBody* flipperRightAnchor;
 
+	PhysBody* kicker;
+	int kickerX = 448, kickerY = 637;
+	bool kickerCharge = false;
+
 	b2RevoluteJoint* flipper_joints[2]; 
 	// Lower ground sensor (will kill all objects passig through it)
 	PhysBody* lower_ground_sensor;

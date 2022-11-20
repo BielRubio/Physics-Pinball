@@ -86,6 +86,10 @@ void ModuleSceneIntro::CreateBoard() {
 
 	flipperRightAnchor = App->physics->CreateCircle(329, 673, 6);
 	flipperRight = App->physics->CreateFlipper(0, 321, 666, FlipperR, 20, 42, 11, 20.0f, -20.0f, -0.15f, 0.15f, flipperRightAnchor->body);
+
+	kicker = App->physics->CreateRectangle(kickerX, kickerY, 31, 60); 
+	kicker->body->SetGravityScale(0);
+	kicker->body->SetLinearVelocity({ 0,0 });
 }
 
 bool ModuleSceneIntro::CleanUp()
@@ -119,6 +123,15 @@ update_status ModuleSceneIntro::Update()
 		// Origin point of the raycast is be the mouse current position now (will not change)
 		ray.x = App->input->GetMouseX();
 		ray.y = App->input->GetMouseY();
+	}
+	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT && kicker->GetPositionY() <= 650) {
+		kicker->body->SetLinearVelocity({ 0,1 });
+	}
+	else {
+		kicker->body->SetLinearVelocity({ 0,0 });
+	}
+	if (App->input->GetKey(SDL_SCANCODE_SPACE) != KEY_REPEAT && kicker->GetPositionY() != kickerY) {
+		//kicker->body->SetLinearVelocity({ 0,(kicker->GetPositionY()-kickerY) });
 	}
 
 	// If user presses 1, create a new circle object
