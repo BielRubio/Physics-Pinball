@@ -20,6 +20,7 @@ public:
 	~PhysBody();
 
 	void GetPosition(int& x, int &y) const;
+	int GetPositionX() const;
 	int GetPositionY() const;
 	float GetRotation() const;
 	bool Contains(int x, int y) const;

@@ -36,6 +36,7 @@ bool ModuleSceneIntro::Start()
 
 	map = App->textures->Load("pinball/map.png");
 	bg = App->textures->Load("pinball/bg.png");
+	kicker1 = App->textures->Load("pinball/kicker.png");
 	bgOffset = 0;
 
 	bonus_fx = App->audio->LoadFx("pinball/bonus.wav");
@@ -125,6 +126,7 @@ update_status ModuleSceneIntro::Update()
 		ray.x = App->input->GetMouseX();
 		ray.y = App->input->GetMouseY();
 	}
+	//Kicker
 	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT && kicker->GetPositionY() <= 650 && kickerCharge == false) {
 		kicker->body->SetLinearVelocity({ 0,1 });
 	}
@@ -144,6 +146,7 @@ update_status ModuleSceneIntro::Update()
 		kicker->body->SetTransform({PIXEL_TO_METERS(448),PIXEL_TO_METERS(637) }, 0.0f);
 		kickerCharge = false;
 	}
+	App->renderer->Blit(kicker1, kicker->GetPositionX(), kicker->GetPositionY());
 	// If user presses 1, create a new circle object
 	if(App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
 	{
