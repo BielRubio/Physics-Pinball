@@ -52,6 +52,8 @@ bool ModuleSceneIntro::Start()
 
 	CreateBoard(); 
 
+	SpawnBall(); 
+
 	return ret;
 }
 
@@ -297,6 +299,7 @@ update_status ModuleSceneIntro::Update()
 		flipperRight->body->ApplyAngularImpulse(50, true);
 	}
 
+	UpdateBall(); 
 	//Draw flippers
 	
 	SDL_Rect r1 = { 0,0,59,16 };
@@ -353,7 +356,7 @@ update_status ModuleSceneIntro::Update()
 void ModuleSceneIntro::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 {
 	// Play Audio FX on every collision, regardless of who is colliding
-	App->audio->PlayFx(bonus_fx);
+	//App->audio->PlayFx(bonus_fx);
 
 	switch (bodyB->type) {
 	case COLLIDER::BUMPER:
@@ -364,7 +367,15 @@ void ModuleSceneIntro::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 
 void ModuleSceneIntro::SpawnBall() {
 
-	circles.add(App->physics->CreateCircle(500, 500, 12));
+	circles.add(App->physics->CreateCircle(450, 500, 12));
 	circles.getLast()->data->listener = this;
+}
+
+void ModuleSceneIntro::UpdateBall() {
+	p2List_item<PhysBody*>* ball = circles.getFirst(); 
+
+	if (ball->data->body->GetPosition().y > PIXEL_TO_METERS(768)) {
+		ball->data->body->SetTransform({ PIXEL_TO_METERS(450), PIXEL_TO_METERS(500) }, 0);
+	}
 }
 
