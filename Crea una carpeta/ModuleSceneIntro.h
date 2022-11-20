@@ -40,7 +40,7 @@ public:
 	bool sensed;
 
 	// Textures
-	SDL_Texture* circle;
+	SDL_Texture* ball;
 	SDL_Texture* box;
 	SDL_Texture* rick;
 
