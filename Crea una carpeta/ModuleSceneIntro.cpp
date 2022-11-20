@@ -456,6 +456,7 @@ void ModuleSceneIntro::UpdateBall() {
 
 void ModuleSceneIntro::GameOver() {
 
+	App->physics->debug = false;
 	App->renderer->Blit(GOBG, 0, 0);
 	if (score > highScore) {
 		highScore = score; 
