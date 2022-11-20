@@ -348,8 +348,8 @@ update_status ModuleSceneIntro::Update()
 	SDL_Rect r1 = { 0,0,59,16 };
 	SDL_Rect r2 = { 59,0,59,16 };
 
-	App->renderer->Blit(flippers, flipperLeft->GetPositionX(), flipperLeft->GetPositionY(), &r1, 1.0f, -flipperLeft->GetRotation());
-	App->renderer->Blit(flippers, flipperRight->GetPositionX()-5, flipperRight->GetPositionY()-5, &r2, 1.0f, flipperRight->GetRotation());
+	App->renderer->Blit(flippers, METERS_TO_PIXELS(flipperLeft->body->GetPosition().x), METERS_TO_PIXELS(flipperLeft->body->GetPosition().y + 5), &r1, 1.0f, flipperLeft->GetRotation(), PIXEL_TO_METERS(5), PIXEL_TO_METERS(5));
+	App->renderer->Blit(flippers, METERS_TO_PIXELS(flipperRight->body->GetPosition().x), METERS_TO_PIXELS(flipperRight->body->GetPosition().y + 5), &r2, 1.0f, flipperRight->GetRotation(), PIXEL_TO_METERS(5), PIXEL_TO_METERS(5));
 
 	//Draw bumpers
 
