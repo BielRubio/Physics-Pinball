@@ -497,6 +497,9 @@ PhysBody* ModulePhysics::CreateVerticalBumper(int x, int y, int* points, int siz
 	// Create FIXTURE
 	b2FixtureDef fixture;
 	fixture.shape = &shape;
+	fixture.density = 1.0f;
+	fixture.friction = 0.0f;
+	fixture.restitution = 1.0f;
 
 	// Add fixture to the BODY
 	b->CreateFixture(&fixture);
