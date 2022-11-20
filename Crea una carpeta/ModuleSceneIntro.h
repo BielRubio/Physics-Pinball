@@ -34,18 +34,23 @@ public:
 	PhysBody* flipperRight;
 	PhysBody* flipperRightAnchor;
 
+	PhysBody* kicker;
+	int kickerX = 448, kickerY = 530;
+	bool kickerCharge = false;
+
 	b2RevoluteJoint* flipper_joints[2]; 
 	// Lower ground sensor (will kill all objects passig through it)
 	PhysBody* lower_ground_sensor;
 	bool sensed;
 
 	// Textures
-	SDL_Texture* circle;
+	SDL_Texture* ball;
 	SDL_Texture* box;
 	SDL_Texture* rick;
 
 	SDL_Texture* map;
 	SDL_Texture* bg;
+	SDL_Texture* kicker1;
 	int bgOffset;
 
 	// FX

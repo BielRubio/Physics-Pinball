@@ -510,6 +510,14 @@ void PhysBody::GetPosition(int& x, int &y) const
 	x = METERS_TO_PIXELS(pos.x) - (width);
 	y = METERS_TO_PIXELS(pos.y) - (height);
 }
+int PhysBody::GetPositionY() const {
+	b2Vec2 pos = body->GetPosition();
+	return  METERS_TO_PIXELS(pos.y) - (height);
+}
+int PhysBody::GetPositionX() const {
+	b2Vec2 pos = body->GetPosition();
+	return  METERS_TO_PIXELS(pos.x) - (width);
+}
 
 float PhysBody::GetRotation() const
 {

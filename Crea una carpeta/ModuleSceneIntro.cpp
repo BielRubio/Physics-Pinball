@@ -11,7 +11,7 @@ ModuleSceneIntro::ModuleSceneIntro(Application* app, bool start_enabled) : Modul
 {
 
 	// Initialise all the internal class variables, at least to NULL pointer
-	circle = box = rick = NULL;
+	ball = box = rick = NULL;
 	ray_on = false;
 	sensed = false;
 }
@@ -34,13 +34,14 @@ bool ModuleSceneIntro::Start()
 
 	map = App->textures->Load("pinball/map.png");
 	bg = App->textures->Load("pinball/bg.png");
+	kicker1 = App->textures->Load("pinball/kicker.png");
 	bgOffset = 0;
 
 	bonus_fx = App->audio->LoadFx("pinball/bonus.wav");
 
 	// Create a big red sensor on the bottom of the screen.
 	// This sensor will not make other objects collide with it, but it can tell if it is "colliding" with something else
-	lower_ground_sensor = App->physics->CreateRectangleSensor(SCREEN_WIDTH / 2, SCREEN_HEIGHT, SCREEN_WIDTH, 50);
+	lower_ground_sensor = App->physics->CreateRectangleSensor(SCREEN_WIDTH / 2, SCREEN_HEIGHT, SCREEN_WIDTH, 20);
 
 	// Add this module (ModuleSceneIntro) as a listener for collisions with the sensor.
 	// In ModulePhysics::PreUpdate(), we iterate over all sensors and (if colliding) we call the function ModuleSceneIntro::OnCollision()
@@ -165,6 +166,11 @@ void ModuleSceneIntro::CreateBoard() {
 
 	flipperRightAnchor = App->physics->CreateCircle(311, 680, 6);
 	flipperRight = App->physics->CreateFlipper(0, 321, 666, FlipperR, 20, 42, 11, 20.0f, -20.0f, -0.15f, 0.15f, flipperRightAnchor->body);
+
+	kicker = App->physics->CreateRectangle(kickerX, kickerY, 31, 60); 
+	kicker->body->SetGravityScale(0);
+	kicker->body->SetLinearVelocity({ 0,0 });
+	kicker->body->SetFixedRotation(true);
 }
 
 bool ModuleSceneIntro::CleanUp()
@@ -187,6 +193,7 @@ update_status ModuleSceneIntro::Update()
 	App->renderer->Blit(bg, 0 - bgOffset, 0);
 
 	// Draw map
+	App->renderer->Blit(kicker1, kicker->GetPositionX(), kicker->GetPositionY());
 	App->renderer->Blit(map,0,0);
 
 	// If user presses SPACE, enable RayCast
@@ -199,11 +206,38 @@ update_status ModuleSceneIntro::Update()
 		ray.x = App->input->GetMouseX();
 		ray.y = App->input->GetMouseY();
 	}
-
+	//Kicker
+	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT && kicker->GetPositionY() <= 546 && kickerCharge == false) {
+		kicker->body->SetLinearVelocity({ 0,1 });
+	}
+	else {
+		if (kickerCharge == false && kicker->GetPositionY() >= 546) {
+			kicker->body->SetLinearVelocity({ 0,0 });
+		}
+		if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_IDLE) {
+			kickerCharge = true;
+		}
+	}
+	if (kickerCharge == true) {
+		if (kicker->GetPositionY() >= 530 && kicker->GetPositionY() < 534) {
+			kicker->body->SetLinearVelocity({ 0,-10 });
+		}
+		if (kicker->GetPositionY() >= 534 && kicker->GetPositionY() < 546) {
+			kicker->body->SetLinearVelocity({ 0,-16 });
+		}
+		if (kicker->GetPositionY() >= 546) {
+			kicker->body->SetLinearVelocity({ 0,-20 });
+		}
+	}
+	if (kicker->GetPositionY() <= (kickerY-10) && kickerCharge == true) {
+		kicker->body->SetLinearVelocity({ 0,0 });
+		kicker->body->SetTransform({PIXEL_TO_METERS(448),PIXEL_TO_METERS(530) }, 0.0f);
+		kickerCharge = false;
+	}
 	// If user presses 1, create a new circle object
 	if(App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
 	{
-		circles.add(App->physics->CreateCircle(App->input->GetMouseX(), App->input->GetMouseY(), 25));
+		circles.add(App->physics->CreateCircle(App->input->GetMouseX(), App->input->GetMouseY(), 12));
 
 		// Add this module (ModuleSceneIntro) as a "listener" interested in collisions with circles.
 		// If Box2D detects a collision with this last generated circle, it will automatically callback the function ModulePhysics::BeginContact()
@@ -242,11 +276,7 @@ update_status ModuleSceneIntro::Update()
 	{
 		int x, y;
 		c->data->GetPosition(x, y);
-
-		// If mouse is over this circle, paint the circle's texture
-		if(c->data->Contains(App->input->GetMouseX(), App->input->GetMouseY()))
-			App->renderer->Blit(circle, x, y, NULL, 1.0f, c->data->GetRotation());
-
+		App->renderer->Blit(ball, x, y, NULL, 1.0f, c->data->GetRotation());
 		c = c->next;
 	}
 
@@ -277,3 +307,4 @@ void ModuleSceneIntro::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 
 	// Do something else. You can also check which bodies are colliding (sensor? ball? player?)
 }
+
