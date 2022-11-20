@@ -140,9 +140,9 @@ update_status ModuleSceneIntro::Update()
 		}
 	}
 	if (kickerCharge == true) {
-		kicker->body->SetLinearVelocity({ 0,-5 });
+		kicker->body->SetLinearVelocity({ 0,-15 });
 	}
-	if (kicker->GetPositionY() <= kickerY && kickerCharge == true) {
+	if (kicker->GetPositionY() <= (kickerY-5) && kickerCharge == true) {
 		kicker->body->SetLinearVelocity({ 0,0 });
 		kicker->body->SetTransform({PIXEL_TO_METERS(448),PIXEL_TO_METERS(530) }, 0.0f);
 		kickerCharge = false;
