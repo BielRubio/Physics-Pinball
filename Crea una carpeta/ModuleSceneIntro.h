@@ -35,7 +35,7 @@ public:
 	PhysBody* flipperRightAnchor;
 
 	PhysBody* kicker;
-	int kickerX = 448, kickerY = 637;
+	int kickerX = 448, kickerY = 530;
 	bool kickerCharge = false;
 
 	b2RevoluteJoint* flipper_joints[2]; 
