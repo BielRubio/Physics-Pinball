@@ -24,6 +24,7 @@ public:
 	void SpawnBall();
 	void UpdateBall(); 
 	void GameOver(); 
+	void UpdateScore(); 
 
 public:
 
@@ -67,6 +68,7 @@ public:
 	SDL_Texture* kicker1;
 	int bgOffset;
 
+
 	// FX
 	uint bonus_fx;
 
@@ -77,6 +79,8 @@ public:
 	//Score
 	int score; 
 	int ballsCounter; 
+
+	int comboCounter; 
 
 	bool gameOver; 
 };
