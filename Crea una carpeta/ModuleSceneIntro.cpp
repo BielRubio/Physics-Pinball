@@ -34,6 +34,7 @@ bool ModuleSceneIntro::Start()
 	ball = App->textures->Load("pinball/ball.png"); 
 	flippers = App->textures->Load("pinball/flipper.png");
 	bumpers = App->textures->Load("pinball/bouncers.png");
+	smallBumpers = App->textures->Load("pinball/small_bumper.png");
 	wall_bumpers = App->textures->Load("pinball/wall_bouncer.png");
 	map = App->textures->Load("pinball/map.png");
 	bg = App->textures->Load("pinball/bg.png");
@@ -221,8 +222,15 @@ void ModuleSceneIntro::CreateBoard() {
 	flipperRightAnchor = App->physics->CreateCircle(311, 680, 6);
 	flipperRight = App->physics->CreateFlipper(0, 311, 680, FlipperR, 20, 42, 11, 20.0f, -20.0f, -0.15f, 0.15f, flipperRightAnchor->body);
 
-	circleBumper[0] = App->physics->CreateBumper(300, 200, 16); 
-	circleBumper[1] = App->physics->CreateBumper(379, 340, 16);
+	circleBumper[0] = App->physics->CreateBumper(144, 224, 32); 
+	circleBumper[1] = App->physics->CreateBumper(330, 224, 32);
+	circleBumper[2] = App->physics->CreateBumper(240, 288, 32);
+	circleBumper[3] = App->physics->CreateBumper(336, 112, 16);
+	circleBumper[4] = App->physics->CreateBumper(368, 112, 16);
+	circleBumper[5] = App->physics->CreateBumper(302, 112, 16);
+	circleBumper[6] = App->physics->CreateBumper(224, 400, 16);
+	circleBumper[7] = App->physics->CreateBumper(288, 368, 16);
+	circleBumper[8] = App->physics->CreateBumper(160, 368, 16);
 
 	wallBumper[0] = App->physics->CreateVerticalBumper(73, 400, vBumper, 16);
 
@@ -325,9 +333,12 @@ update_status ModuleSceneIntro::Update()
 
 	//Draw bumpers
 
-	for (int i = 0; i < 2; i++) {
-		SDL_Rect r3 = { 0,0,80,80 };
-		App->renderer->Blit(bumpers, circleBumper[i]->GetPositionX(), circleBumper[i]->GetPositionY(), &r3);
+	for (int i = 0; i < 3; i++) {
+		App->renderer->Blit(bumpers, circleBumper[i]->GetPositionX()+24, circleBumper[i]->GetPositionY()+24);
+
+	}
+	for (int i = 3; i < 9; i++) {
+		App->renderer->Blit(smallBumpers, circleBumper[i]->GetPositionX() + 16, circleBumper[i]->GetPositionY() + 16);
 
 	}
 

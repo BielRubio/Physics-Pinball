@@ -40,7 +40,7 @@ public:
 	PhysBody* flipperRight;
 	PhysBody* flipperRightAnchor;
 
-	PhysBody* circleBumper[5]; 
+	PhysBody* circleBumper[40]; 
 	PhysBody* wallBumper[2]; 
 
 	PhysBody* kicker;
@@ -56,6 +56,7 @@ public:
 	SDL_Texture* ball;
 	SDL_Texture* flippers;
 	SDL_Texture* bumpers;
+	SDL_Texture* smallBumpers;
 	SDL_Texture* wall_bumpers;
 	SDL_Texture* box;
 	SDL_Texture* rick;
