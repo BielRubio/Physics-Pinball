@@ -90,6 +90,7 @@ void ModuleSceneIntro::CreateBoard() {
 	kicker = App->physics->CreateRectangle(kickerX, kickerY, 31, 60); 
 	kicker->body->SetGravityScale(0);
 	kicker->body->SetLinearVelocity({ 0,0 });
+	kicker->body->SetFixedRotation(true);
 }
 
 bool ModuleSceneIntro::CleanUp()
