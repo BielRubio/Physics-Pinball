@@ -468,6 +468,7 @@ PhysBody* ModulePhysics::CreateBumper(int x, int y, int radius) {
 
 	b->CreateFixture(&fixture);
 	PhysBody* pbody = new PhysBody;
+	pbody->type = COLLIDER::BUMPER; 
 	pbody->body = b;
 	b->SetUserData(pbody);
 

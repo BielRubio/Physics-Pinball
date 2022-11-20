@@ -12,6 +12,7 @@
 #define METERS_TO_PIXELS(m) ((int) floor(PIXELS_PER_METER * m))
 #define PIXEL_TO_METERS(p)  ((float) METER_PER_PIXEL * p)
 
+enum class COLLIDER { UNKNOWN, BUMPER };
 // Small class to return to other modules to track position and rotation of physics bodies
 class PhysBody
 {
@@ -27,6 +28,7 @@ public:
 	int RayCast(int x1, int y1, int x2, int y2, float& normal_x, float& normal_y) const;
 
 public:
+	COLLIDER type; 
 	int width, height;
 	b2Body* body;
 	Module* listener;

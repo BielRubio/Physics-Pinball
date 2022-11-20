@@ -21,6 +21,7 @@ public:
 	bool CleanUp();
 	void OnCollision(PhysBody* bodyA, PhysBody* bodyB);
 	void CreateBoard(); 
+	
 
 public:
 
@@ -65,4 +66,7 @@ public:
 	// Raycast
 	p2Point<int> ray;
 	bool ray_on;
+
+	//Score
+	int score; 
 };

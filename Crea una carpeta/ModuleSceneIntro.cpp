@@ -47,6 +47,8 @@ bool ModuleSceneIntro::Start()
 	// In ModulePhysics::PreUpdate(), we iterate over all sensors and (if colliding) we call the function ModuleSceneIntro::OnCollision()
 	lower_ground_sensor->listener = this;
 
+	score = 0; 
+
 	CreateBoard(); 
 
 	return ret;
@@ -204,6 +206,7 @@ void ModuleSceneIntro::CreateBoard() {
 	flipperRight = App->physics->CreateFlipper(0, 311, 680, FlipperR, 20, 42, 11, 20.0f, -20.0f, -0.15f, 0.15f, flipperRightAnchor->body);
 
 	circleBumper[0] = App->physics->CreateBumper(300, 200, 16); 
+	circleBumper[1] = App->physics->CreateBumper(379, 340, 16);
 
 	kicker = App->physics->CreateRectangle(kickerX, kickerY, 31, 60); 
 	kicker->body->SetGravityScale(0);
@@ -343,6 +346,10 @@ void ModuleSceneIntro::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 	// Play Audio FX on every collision, regardless of who is colliding
 	App->audio->PlayFx(bonus_fx);
 
+	switch (bodyB->type) {
+	case COLLIDER::BUMPER:
+		score += 100; 
+	}
 	// Do something else. You can also check which bodies are colliding (sensor? ball? player?)
 }
 
