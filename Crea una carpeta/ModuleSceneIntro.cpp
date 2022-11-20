@@ -49,6 +49,7 @@ bool ModuleSceneIntro::Start()
 	lower_ground_sensor->listener = this;
 
 	score = 0; 
+	ballsCounter = 3; 
 
 	CreateBoard(); 
 
@@ -270,7 +271,7 @@ update_status ModuleSceneIntro::Update()
 			kicker->body->SetLinearVelocity({ 0,-16 });
 		}
 		if (kicker->GetPositionY() >= 546) {
-			kicker->body->SetLinearVelocity({ 0,-20 });
+			kicker->body->SetLinearVelocity({ 0,-30 });
 		}
 	}
 	if (kicker->GetPositionY() <= (kickerY-10) && kickerCharge == true) {
@@ -291,7 +292,7 @@ update_status ModuleSceneIntro::Update()
 
 	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN)
 	{
-		flipperLeft->body->ApplyAngularImpulse(-50,true); 
+		flipperLeft->body->ApplyAngularImpulse(-30,true); 
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN)
@@ -349,6 +350,10 @@ update_status ModuleSceneIntro::Update()
 			App->renderer->DrawLine(ray.x + destination.x, ray.y + destination.y, ray.x + destination.x + normal.x * 25.0f, ray.y + destination.y + normal.y * 25.0f, 100, 255, 100);
 	}
 
+	if (gameOver == true) {
+		GameOver(); 
+	}
+
 	// Keep playing
 	return UPDATE_CONTINUE;
 }
@@ -375,7 +380,17 @@ void ModuleSceneIntro::UpdateBall() {
 	p2List_item<PhysBody*>* ball = circles.getFirst(); 
 
 	if (ball->data->body->GetPosition().y > PIXEL_TO_METERS(768)) {
-		ball->data->body->SetTransform({ PIXEL_TO_METERS(450), PIXEL_TO_METERS(500) }, 0);
+		ballsCounter--;
+		if (ballsCounter <= 0) {
+			gameOver = true; 
+		}
+		else {
+			ball->data->body->SetTransform({ PIXEL_TO_METERS(450), PIXEL_TO_METERS(500) }, 0);
+		}
 	}
+}
+
+void ModuleSceneIntro::GameOver() {
+
 }
 

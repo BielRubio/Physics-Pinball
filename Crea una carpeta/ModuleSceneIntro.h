@@ -23,6 +23,7 @@ public:
 	void CreateBoard(); 
 	void SpawnBall();
 	void UpdateBall(); 
+	void GameOver(); 
 
 public:
 
@@ -71,4 +72,7 @@ public:
 
 	//Score
 	int score; 
+	int ballsCounter; 
+
+	bool gameOver; 
 };
