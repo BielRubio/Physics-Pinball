@@ -45,6 +45,7 @@ bool ModuleSceneIntro::Start()
 	bgOffset = 0;
 
 	bonus_fx = App->audio->LoadFx("pinball/bonus.wav");
+	boing_fx = App->audio->LoadFx("pinball/boing.wav");
 
 	// Create a big red sensor on the bottom of the screen.
 	// This sensor will not make other objects collide with it, but it can tell if it is "colliding" with something else
@@ -432,6 +433,7 @@ void ModuleSceneIntro::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 	case COLLIDER::BUMPER:
 		comboCounter++;
 		score += 100;
+		App->audio->PlayFx(boing_fx);
 		if (comboCounter >= 3 && comboCounter < 6 ) {
 			score += 100; 
 		}
