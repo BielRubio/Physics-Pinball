@@ -60,11 +60,11 @@ void ModuleSceneIntro::CreateBoard() {
 		1, 11,
 		3, 17,
 		8, 21,
-		46, 19,
-		50, 17,
-		52, 12,
-		50, 8,
-		46, 6
+		60, 19,
+		62, 17,
+		64, 12,
+		62, 8,
+		58, 6
 	};
 
 	int FlipperR[20] = {
@@ -74,10 +74,10 @@ void ModuleSceneIntro::CreateBoard() {
 		51, 15,
 		48, 20,
 		42, 21,
-		5, 17,
-		2, 14,
-		2, 9,
-		6, 6,
+		-5, 17,
+		-8, 14,
+		-8, 9,
+		-4, 6,
 	};
 
 	int GameBoard[76] = {
@@ -198,10 +198,10 @@ void ModuleSceneIntro::CreateBoard() {
 	flipperWallRight->body->SetType(b2_staticBody);
 
 	flipperLeftAnchor = App->physics->CreateCircle(137, 680, 6);
-	flipperLeft = App->physics->CreateFlipper(1, 112, 666, FlipperL, 20, 11, 11, 20.0f, 20.0f, -0.15f, 0.15f, flipperLeftAnchor->body);
+	flipperLeft = App->physics->CreateFlipper(1, 137, 680, FlipperL, 20, 11, 11, 20.0f, 20.0f, -0.15f, 0.15f, flipperLeftAnchor->body);
 
 	flipperRightAnchor = App->physics->CreateCircle(311, 680, 6);
-	flipperRight = App->physics->CreateFlipper(0, 321, 666, FlipperR, 20, 42, 11, 20.0f, -20.0f, -0.15f, 0.15f, flipperRightAnchor->body);
+	flipperRight = App->physics->CreateFlipper(0, 311, 680, FlipperR, 20, 42, 11, 20.0f, -20.0f, -0.15f, 0.15f, flipperRightAnchor->body);
 
 	circleBumper[0] = App->physics->CreateBumper(300, 200, 16); 
 
