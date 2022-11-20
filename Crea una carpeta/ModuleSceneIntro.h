@@ -83,8 +83,12 @@ public:
 	bool ray_on;
 
 	//Score
-	int score = 100; 
 	const char* scoreS;
+	char ScoreR[256];
+	char ScoreP[256];
+	char ScoreH[256];
+	char BallsC[256];
+	int score = 50; 
 	int previousScore; 
 	int highScore;  
 	int ballsCounter; 
