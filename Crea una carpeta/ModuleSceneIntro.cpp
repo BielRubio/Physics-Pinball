@@ -30,8 +30,9 @@ bool ModuleSceneIntro::Start()
 	App->renderer->camera.x = App->renderer->camera.y = 0;
 
 	// Load textures
-	ball = App->textures->Load("pinball/ball.png"); 
 
+	ball = App->textures->Load("pinball/ball.png"); 
+	flippers = App->textures->Load("pinball/flippers.png");
 	map = App->textures->Load("pinball/map.png");
 	bg = App->textures->Load("pinball/bg.png");
 	kicker1 = App->textures->Load("pinball/kicker.png");
@@ -296,6 +297,14 @@ update_status ModuleSceneIntro::Update()
 		flipperRight->body->ApplyAngularImpulse(50, true);
 	}
 
+	//Draw flippers
+	
+	SDL_Rect r1 = { 0,0,58,25 };
+	SDL_Rect r2 = { 58,0,58,25 };
+
+	App->renderer->Blit(flippers, flipperLeft->GetPositionX(), flipperLeft->GetPositionY(), &r1, 1.0f, -flipperLeft->GetRotation());
+	App->renderer->Blit(flippers, flipperRight->GetPositionX(), flipperRight->GetPositionY(), &r2, 1.0f, flipperRight->GetRotation());
+
 	// Prepare for raycast ------------------------------------------------------
 	
 	// The target point of the raycast is the mouse current position (will change over game time)
@@ -317,7 +326,7 @@ update_status ModuleSceneIntro::Update()
 	{
 		int x, y;
 		c->data->GetPosition(x, y);
-		App->renderer->Blit(ball, x, y, NULL, 1.0f, c->data->GetRotation());
+		App->renderer->Blit(ball, x, y, NULL, 1.0f);
 		c = c->next;
 	}
 

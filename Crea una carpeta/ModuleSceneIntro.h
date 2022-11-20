@@ -52,6 +52,7 @@ public:
 
 	// Textures
 	SDL_Texture* ball;
+	SDL_Texture* flippers;
 	SDL_Texture* box;
 	SDL_Texture* rick;
 
