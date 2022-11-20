@@ -45,6 +45,8 @@ bool ModulePhysics::Start()
 	b2BodyDef bd;
 	ground = world->CreateBody(&bd); // Add the static ground body to the World
 
+	debug = false;
+
 	return true;
 }
 

@@ -283,7 +283,7 @@ update_status ModuleSceneIntro::Update()
 		if (kickerCharge == false && kicker->GetPositionY() >= 546) {
 			kicker->body->SetLinearVelocity({ 0,0 });
 		}
-		if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_IDLE && gameOver == false) {
+		if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_IDLE) {
 			kickerCharge = true;
 		}
 	}
