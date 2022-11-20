@@ -53,6 +53,7 @@ bool ModuleSceneIntro::Start()
 	lower_ground_sensor->type = COLLIDER::FALL;
 
 	score = 0; 
+	ballsCounter = 3; 
 
 	CreateBoard(); 
 
@@ -193,7 +194,16 @@ void ModuleSceneIntro::CreateBoard() {
 		305, 686, 
 		305, 677, 
 	}; 
-
+	int vBumper[16]{
+		0, 6,
+		0, 59, 
+		5, 64,
+		11, 64, 
+		16, 59, 
+		16, 6,
+		11, 0, 
+		6, 0,
+	};
 	board = App->physics->CreateChain(0, 0, GameBoard, 76);
 	board->body->SetType(b2_staticBody);
 	
@@ -221,6 +231,8 @@ void ModuleSceneIntro::CreateBoard() {
 	circleBumper[6] = App->physics->CreateBumper(224, 400, 16);
 	circleBumper[7] = App->physics->CreateBumper(288, 368, 16);
 	circleBumper[8] = App->physics->CreateBumper(160, 368, 16);
+
+	wallBumper[0] = App->physics->CreateVerticalBumper(73, 400, vBumper, 16);
 
 	kicker = App->physics->CreateRectangle(kickerX, kickerY, 31, 60); 
 	kicker->body->SetGravityScale(0);
@@ -281,7 +293,7 @@ update_status ModuleSceneIntro::Update()
 			kicker->body->SetLinearVelocity({ 0,-16 });
 		}
 		if (kicker->GetPositionY() >= 546) {
-			kicker->body->SetLinearVelocity({ 0,-20 });
+			kicker->body->SetLinearVelocity({ 0,-30 });
 		}
 	}
 	if (kicker->GetPositionY() <= (kickerY-10) && kickerCharge == true) {
@@ -302,7 +314,7 @@ update_status ModuleSceneIntro::Update()
 
 	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN)
 	{
-		flipperLeft->body->ApplyAngularImpulse(-50,true); 
+		flipperLeft->body->ApplyAngularImpulse(-30,true); 
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN)
@@ -372,6 +384,10 @@ update_status ModuleSceneIntro::Update()
 			App->renderer->DrawLine(ray.x + destination.x, ray.y + destination.y, ray.x + destination.x + normal.x * 25.0f, ray.y + destination.y + normal.y * 25.0f, 100, 255, 100);
 	}
 
+	if (gameOver == true) {
+		GameOver(); 
+	}
+
 	// Keep playing
 	return UPDATE_CONTINUE;
 }
@@ -400,7 +416,17 @@ void ModuleSceneIntro::UpdateBall() {
 	p2List_item<PhysBody*>* ball = circles.getFirst(); 
 
 	if (ball->data->body->GetPosition().y > PIXEL_TO_METERS(768)) {
-		ball->data->body->SetTransform({ PIXEL_TO_METERS(450), PIXEL_TO_METERS(500) }, 0);
+		ballsCounter--;
+		if (ballsCounter <= 0) {
+			gameOver = true; 
+		}
+		else {
+			ball->data->body->SetTransform({ PIXEL_TO_METERS(450), PIXEL_TO_METERS(500) }, 0);
+		}
 	}
+}
+
+void ModuleSceneIntro::GameOver() {
+
 }
 

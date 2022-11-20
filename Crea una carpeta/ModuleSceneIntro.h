@@ -23,6 +23,7 @@ public:
 	void CreateBoard(); 
 	void SpawnBall();
 	void UpdateBall(); 
+	void GameOver(); 
 
 public:
 
@@ -40,7 +41,7 @@ public:
 	PhysBody* flipperRightAnchor;
 
 	PhysBody* circleBumper[40]; 
-	PhysBody* wallBumper; 
+	PhysBody* wallBumper[2]; 
 
 	PhysBody* kicker;
 	int kickerX = 448, kickerY = 530;
@@ -74,4 +75,7 @@ public:
 
 	//Score
 	int score; 
+	int ballsCounter; 
+
+	bool gameOver; 
 };
