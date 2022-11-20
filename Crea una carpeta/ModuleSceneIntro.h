@@ -62,6 +62,7 @@ public:
 	SDL_Texture* rick;
 
 	SDL_Texture* map;
+	SDL_Texture* GOBG;
 	SDL_Texture* bg;
 	SDL_Texture* kicker1;
 	int bgOffset;

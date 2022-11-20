@@ -38,6 +38,7 @@ bool ModuleSceneIntro::Start()
 	wall_bumpers = App->textures->Load("pinball/wall_bouncer.png");
 	map = App->textures->Load("pinball/map.png");
 	bg = App->textures->Load("pinball/bg.png");
+	GOBG = App->textures->Load("pinball/lose_screen.png");
 	kicker1 = App->textures->Load("pinball/kicker.png");
 	bgOffset = 0;
 
@@ -222,9 +223,9 @@ void ModuleSceneIntro::CreateBoard() {
 	flipperRightAnchor = App->physics->CreateCircle(311, 680, 6);
 	flipperRight = App->physics->CreateFlipper(0, 311, 680, FlipperR, 20, 42, 11, 20.0f, -20.0f, -0.15f, 0.15f, flipperRightAnchor->body);
 
-	circleBumper[0] = App->physics->CreateBumper(144, 224, 32); 
+	circleBumper[0] = App->physics->CreateBumper(118, 224, 32); 
 	circleBumper[1] = App->physics->CreateBumper(330, 224, 32);
-	circleBumper[2] = App->physics->CreateBumper(240, 288, 32);
+	circleBumper[2] = App->physics->CreateBumper(224, 240, 32);
 	circleBumper[3] = App->physics->CreateBumper(336, 112, 16);
 	circleBumper[4] = App->physics->CreateBumper(368, 112, 16);
 	circleBumper[5] = App->physics->CreateBumper(302, 112, 16);
@@ -232,7 +233,8 @@ void ModuleSceneIntro::CreateBoard() {
 	circleBumper[7] = App->physics->CreateBumper(288, 368, 16);
 	circleBumper[8] = App->physics->CreateBumper(160, 368, 16);
 
-	wallBumper[0] = App->physics->CreateVerticalBumper(73, 400, vBumper, 16);
+	wallBumper[0] = App->physics->CreateVerticalBumper(48, 384, vBumper, 16);
+	wallBumper[1] = App->physics->CreateVerticalBumper(384, 384, vBumper, 16);
 
 	kicker = App->physics->CreateRectangle(kickerX, kickerY, 31, 60); 
 	kicker->body->SetGravityScale(0);
@@ -274,14 +276,14 @@ update_status ModuleSceneIntro::Update()
 		ray.y = App->input->GetMouseY();
 	}
 	//Kicker
-	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT && kicker->GetPositionY() <= 546 && kickerCharge == false) {
+	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT && kicker->GetPositionY() <= 546 && kickerCharge == false && gameOver == false) {
 		kicker->body->SetLinearVelocity({ 0,1 });
 	}
 	else {
 		if (kickerCharge == false && kicker->GetPositionY() >= 546) {
 			kicker->body->SetLinearVelocity({ 0,0 });
 		}
-		if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_IDLE) {
+		if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_IDLE && gameOver == false) {
 			kickerCharge = true;
 		}
 	}
@@ -322,6 +324,24 @@ update_status ModuleSceneIntro::Update()
 		flipperRight->body->ApplyAngularImpulse(50, true);
 	}
 
+	//Debug keys
+	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
+	{
+		gameOver = true;
+		UpdateBall();
+		ballsCounter = 0;
+
+	}
+	if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
+	{
+		ballsCounter++;
+	}
+	if (App->input->GetKey(SDL_SCANCODE_F4) == KEY_DOWN)
+	{
+		ballsCounter--;
+	}
+
+
 	UpdateBall(); 
 	//Draw flippers
 	
@@ -339,6 +359,12 @@ update_status ModuleSceneIntro::Update()
 	}
 	for (int i = 3; i < 9; i++) {
 		App->renderer->Blit(smallBumpers, circleBumper[i]->GetPositionX() + 16, circleBumper[i]->GetPositionY() + 16);
+
+	}
+
+	//Draw wall bumpers
+	for (int i = 0; i < 2; i++) {
+		App->renderer->Blit(wall_bumpers, wallBumper[i]->GetPositionX(), wallBumper[i]->GetPositionY());
 
 	}
 
@@ -421,12 +447,19 @@ void ModuleSceneIntro::UpdateBall() {
 			gameOver = true; 
 		}
 		else {
-			ball->data->body->SetTransform({ PIXEL_TO_METERS(450), PIXEL_TO_METERS(500) }, 0);
+			ball->data->body->SetLinearVelocity({ 0,0 });
+			ball->data->body->SetTransform({ PIXEL_TO_METERS(450), PIXEL_TO_METERS(400) }, 0);
 		}
 	}
 }
 
 void ModuleSceneIntro::GameOver() {
+
+	App->renderer->Blit(GOBG, 0, 0);
+	if (App->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN) {
+		gameOver = false;
+		ballsCounter = 3;
+	}
 
 }
 
