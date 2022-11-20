@@ -32,7 +32,7 @@ bool ModuleSceneIntro::Start()
 	// Load textures
 
 	ball = App->textures->Load("pinball/ball.png"); 
-	flippers = App->textures->Load("pinball/flippers.png");
+	flippers = App->textures->Load("pinball/flipper.png");
 	map = App->textures->Load("pinball/map.png");
 	bg = App->textures->Load("pinball/bg.png");
 	kicker1 = App->textures->Load("pinball/kicker.png");
@@ -296,11 +296,11 @@ update_status ModuleSceneIntro::Update()
 
 	//Draw flippers
 	
-	SDL_Rect r1 = { 0,0,58,25 };
-	SDL_Rect r2 = { 58,0,58,25 };
+	SDL_Rect r1 = { 0,0,59,16 };
+	SDL_Rect r2 = { 59,0,59,16 };
 
 	App->renderer->Blit(flippers, flipperLeft->GetPositionX(), flipperLeft->GetPositionY(), &r1, 1.0f, -flipperLeft->GetRotation());
-	App->renderer->Blit(flippers, flipperRight->GetPositionX(), flipperRight->GetPositionY(), &r2, 1.0f, flipperRight->GetRotation());
+	App->renderer->Blit(flippers, flipperRight->GetPositionX()-5, flipperRight->GetPositionY()-5, &r2, 1.0f, flipperRight->GetRotation());
 
 	// Prepare for raycast ------------------------------------------------------
 	
@@ -352,6 +352,14 @@ void ModuleSceneIntro::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 	// Play Audio FX on every collision, regardless of who is colliding
 	App->audio->PlayFx(bonus_fx);
 
+	
+
 	// Do something else. You can also check which bodies are colliding (sensor? ball? player?)
+}
+
+void ModuleSceneIntro::SpawnBall() {
+
+	circles.add(App->physics->CreateCircle(500, 500, 12));
+	circles.getLast()->data->listener = this;
 }
 
