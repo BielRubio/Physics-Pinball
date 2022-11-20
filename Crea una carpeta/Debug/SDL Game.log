@@ -1,4 +1,5 @@
-﻿  ModulePhysics.cpp
+﻿  Application.cpp
+  ModulePhysics.cpp
 C:\Users\bielr\OneDrive\Documentos\GitHub\Physics-Pinball\Crea una carpeta\ModulePhysics.cpp(253,8): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
 C:\Users\bielr\OneDrive\Documentos\GitHub\Physics-Pinball\Crea una carpeta\ModulePhysics.cpp(334,23): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
 C:\Users\bielr\OneDrive\Documentos\GitHub\Physics-Pinball\Crea una carpeta\ModulePhysics.cpp(335,25): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
@@ -7,4 +8,59 @@ C:\Users\bielr\OneDrive\Documentos\GitHub\Physics-Pinball\Crea una carpeta\Modul
 C:\Users\bielr\OneDrive\Documentos\GitHub\Physics-Pinball\Crea una carpeta\ModulePhysics.cpp(605,13): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
 C:\Users\bielr\OneDrive\Documentos\GitHub\Physics-Pinball\Crea una carpeta\ModulePhysics.cpp(606,13): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
 C:\Users\bielr\OneDrive\Documentos\GitHub\Physics-Pinball\Crea una carpeta\ModulePhysics.cpp(612,27): warning C4244: 'return': conversion from 'float32' to 'int', possible loss of data
+  ModuleSceneIntro.cpp
+C:\Users\bielr\OneDrive\Documentos\GitHub\Physics-Pinball\Crea una carpeta\ModuleSceneIntro.cpp(355,203): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\bielr\OneDrive\Documentos\GitHub\Physics-Pinball\Crea una carpeta\ModuleSceneIntro.cpp(355,183): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\bielr\OneDrive\Documentos\GitHub\Physics-Pinball\Crea una carpeta\ModuleSceneIntro.cpp(356,206): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\bielr\OneDrive\Documentos\GitHub\Physics-Pinball\Crea una carpeta\ModuleSceneIntro.cpp(356,186): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\bielr\OneDrive\Documentos\GitHub\Physics-Pinball\Crea una carpeta\ModuleSceneIntro.cpp(405,45): warning C4244: 'argument': conversion from 'TYPE' to 'TYPE', possible loss of data
+          with
+          [
+              TYPE=int
+          ]
+          and
+          [
+              TYPE=float
+          ]
+C:\Users\bielr\OneDrive\Documentos\GitHub\Physics-Pinball\Crea una carpeta\ModuleSceneIntro.cpp(405,30): warning C4244: 'argument': conversion from 'TYPE' to 'TYPE', possible loss of data
+          with
+          [
+              TYPE=int
+          ]
+          and
+          [
+              TYPE=float
+          ]
+C:\Users\bielr\OneDrive\Documentos\GitHub\Physics-Pinball\Crea una carpeta\ModuleSceneIntro.cpp(407,18): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\bielr\OneDrive\Documentos\GitHub\Physics-Pinball\Crea una carpeta\ModuleSceneIntro.cpp(410,70): warning C4244: 'argument': conversion from 'TYPE' to 'int', possible loss of data
+          with
+          [
+              TYPE=float
+          ]
+C:\Users\bielr\OneDrive\Documentos\GitHub\Physics-Pinball\Crea una carpeta\ModuleSceneIntro.cpp(410,47): warning C4244: 'argument': conversion from 'TYPE' to 'int', possible loss of data
+          with
+          [
+              TYPE=float
+          ]
+C:\Users\bielr\OneDrive\Documentos\GitHub\Physics-Pinball\Crea una carpeta\ModuleSceneIntro.cpp(414,138): warning C4244: 'argument': conversion from 'TYPE' to 'int', possible loss of data
+          with
+          [
+              TYPE=float
+          ]
+C:\Users\bielr\OneDrive\Documentos\GitHub\Physics-Pinball\Crea una carpeta\ModuleSceneIntro.cpp(414,96): warning C4244: 'argument': conversion from 'TYPE' to 'int', possible loss of data
+          with
+          [
+              TYPE=float
+          ]
+C:\Users\bielr\OneDrive\Documentos\GitHub\Physics-Pinball\Crea una carpeta\ModuleSceneIntro.cpp(414,57): warning C4244: 'argument': conversion from 'TYPE' to 'int', possible loss of data
+          with
+          [
+              TYPE=float
+          ]
+C:\Users\bielr\OneDrive\Documentos\GitHub\Physics-Pinball\Crea una carpeta\ModuleSceneIntro.cpp(414,34): warning C4244: 'argument': conversion from 'TYPE' to 'int', possible loss of data
+          with
+          [
+              TYPE=float
+          ]
+  Generating Code...
   SDL Game.vcxproj -> C:\Users\bielr\OneDrive\Documentos\GitHub\Physics-Pinball\Crea una carpeta\Debug\Box2D - Tutorial.exe
