@@ -66,6 +66,7 @@ public:
 	SDL_Texture* GOBG;
 	SDL_Texture* bg;
 	SDL_Texture* kicker1;
+	int Font;
 	int bgOffset;
 
 

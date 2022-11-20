@@ -30,7 +30,8 @@ bool ModuleSceneIntro::Start()
 	App->renderer->camera.x = App->renderer->camera.y = 0;
 
 	// Load textures
-
+	char lookupTable[] = { "0123456789" };
+	Font = App->renderer->Load("pinball/FontW.png", lookupTable, 1);
 	ball = App->textures->Load("pinball/ball.png"); 
 	flippers = App->textures->Load("pinball/flipper.png");
 	bumpers = App->textures->Load("pinball/bouncers.png");
@@ -40,6 +41,7 @@ bool ModuleSceneIntro::Start()
 	bg = App->textures->Load("pinball/bg.png");
 	GOBG = App->textures->Load("pinball/lose_screen.png");
 	kicker1 = App->textures->Load("pinball/kicker.png");
+	
 	bgOffset = 0;
 
 	bonus_fx = App->audio->LoadFx("pinball/bonus.wav");
@@ -267,7 +269,6 @@ update_status ModuleSceneIntro::Update()
 	// Draw map
 	App->renderer->Blit(kicker1, kicker->GetPositionX(), kicker->GetPositionY());
 	App->renderer->Blit(map,0,0);
-
 	// If user presses SPACE, enable RayCast
 	if(App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
 	{
@@ -279,6 +280,7 @@ update_status ModuleSceneIntro::Update()
 		ray.y = App->input->GetMouseY();
 	}
 	//Kicker
+	App->renderer->BlitText(200, 12, Font, "0000");
 	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT && kicker->GetPositionY() <= 546 && kickerCharge == false && gameOver == false) {
 		kicker->body->SetLinearVelocity({ 0,1 });
 	}
