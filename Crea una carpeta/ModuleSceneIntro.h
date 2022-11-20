@@ -50,6 +50,7 @@ public:
 
 	SDL_Texture* map;
 	SDL_Texture* bg;
+	SDL_Texture* kicker1;
 	int bgOffset;
 
 	// FX
