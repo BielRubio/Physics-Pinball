@@ -193,7 +193,16 @@ void ModuleSceneIntro::CreateBoard() {
 		305, 686, 
 		305, 677, 
 	}; 
-
+	int vBumper[16]{
+		0, 6,
+		0, 59, 
+		5, 64,
+		11, 64, 
+		16, 59, 
+		16, 6,
+		11, 0, 
+		6, 0,
+	};
 	board = App->physics->CreateChain(0, 0, GameBoard, 76);
 	board->body->SetType(b2_staticBody);
 	
@@ -214,6 +223,8 @@ void ModuleSceneIntro::CreateBoard() {
 
 	circleBumper[0] = App->physics->CreateBumper(300, 200, 16); 
 	circleBumper[1] = App->physics->CreateBumper(379, 340, 16);
+
+	wallBumper[0] = App->physics->CreateVerticalBumper(73, 400, vBumper, 16);
 
 	kicker = App->physics->CreateRectangle(kickerX, kickerY, 31, 60); 
 	kicker->body->SetGravityScale(0);

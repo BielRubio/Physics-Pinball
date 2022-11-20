@@ -59,6 +59,7 @@ public:
 	PhysBody* CreateChain(int x, int y, int* points, int size);
 	PhysBody* CreateFlipper(int id, int x, int y, int* points, int size, int anchorX, int anchorY, float speed, float maxSpeed, float lowerAngle, float upperAngle, b2Body* bodyA);
 	PhysBody* CreateBumper(int x, int y, int radius);  
+	PhysBody* CreateVerticalBumper(int x, int y, int* points, int size); 
 	// b2ContactListener ---
 	void BeginContact(b2Contact* contact);
 
