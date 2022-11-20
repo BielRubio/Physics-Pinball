@@ -64,6 +64,8 @@ bool ModuleSceneIntro::Start()
 
 	SpawnBall();
 
+	App->audio->PlayMusic("pinball/music.ogg");
+
 	return ret;
 }
 
@@ -239,8 +241,8 @@ void ModuleSceneIntro::CreateBoard() {
 	circleBumper[7] = App->physics->CreateBumper(288, 368, 16);
 	circleBumper[8] = App->physics->CreateBumper(160, 368, 16);
 
-	wallBumper[0] = App->physics->CreateVerticalBumper(48, 384, vBumper, 16);
-	wallBumper[1] = App->physics->CreateVerticalBumper(384, 384, vBumper, 16);
+	wallBumper[0] = App->physics->CreateVerticalBumper(44, 384, vBumper, 16);
+	wallBumper[1] = App->physics->CreateVerticalBumper(388, 384, vBumper, 16);
 
 	kicker = App->physics->CreateRectangle(kickerX, kickerY, 31, 60); 
 	kicker->body->SetGravityScale(0);
@@ -270,16 +272,7 @@ update_status ModuleSceneIntro::Update()
 	// Draw map
 	App->renderer->Blit(kicker1, kicker->GetPositionX(), kicker->GetPositionY());
 	App->renderer->Blit(map,0,0);
-	// If user presses SPACE, enable RayCast
-	if(App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
-	{
-		// Enable raycast mode
-		ray_on = !ray_on;
 
-		// Origin point of the raycast is be the mouse current position now (will not change)
-		ray.x = App->input->GetMouseX();
-		ray.y = App->input->GetMouseY();
-	}
 	//Kicker
 	App->renderer->BlitText(200, 12, Font, "0000");
 	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT && kicker->GetPositionY() <= 546 && kickerCharge == false && gameOver == false) {
@@ -398,27 +391,14 @@ update_status ModuleSceneIntro::Update()
 		App->renderer->Blit(ball, x, y, NULL, 1.0f);
 		c = c->next;
 	}
-		
-
-	// Raycasts -----------------
-	if(ray_on == true)
-	{
-		// Compute the vector from the raycast origin up to the contact point (if we're hitting anything; otherwise this is the reference length)
-		fVector destination(mouse.x-ray.x, mouse.y-ray.y);
-		destination.Normalize();
-		destination *= ray_hit;
-
-		// Draw a line from origin to the hit point (or reference length if we are not hitting anything)
-		App->renderer->DrawLine(ray.x, ray.y, ray.x + destination.x, ray.y + destination.y, 255, 255, 255);
-
-		// If we are hitting something with the raycast, draw the normal vector to the contact point
-		if(normal.x != 0.0f)
-			App->renderer->DrawLine(ray.x + destination.x, ray.y + destination.y, ray.x + destination.x + normal.x * 25.0f, ray.y + destination.y + normal.y * 25.0f, 100, 255, 100);
-	}
 
 	if (gameOver == true) {
 		GameOver(); 
 	}
+
+	//Music
+
+	
 
 	// Keep playing
 	return UPDATE_CONTINUE;
