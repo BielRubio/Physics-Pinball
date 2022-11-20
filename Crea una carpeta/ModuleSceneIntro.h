@@ -67,4 +67,7 @@ public:
 	// Raycast
 	p2Point<int> ray;
 	bool ray_on;
+
+	//Score
+	int score; 
 };
