@@ -80,6 +80,8 @@ public:
 
 	//Score
 	int score; 
+	int previousScore; 
+	int highScore;  
 	int ballsCounter; 
 
 	int comboCounter; 

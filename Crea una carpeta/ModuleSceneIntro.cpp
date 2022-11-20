@@ -57,6 +57,8 @@ bool ModuleSceneIntro::Start()
 	lower_ground_sensor->type = COLLIDER::FALL;
 
 	score = 0; 
+	previousScore = 0; 
+	highScore = 0; 
 	ballsCounter = 3; 
 	comboCounter = 0; 
 
@@ -474,9 +476,15 @@ void ModuleSceneIntro::UpdateBall() {
 void ModuleSceneIntro::GameOver() {
 
 	App->renderer->Blit(GOBG, 0, 0);
+	if (score > highScore) {
+		highScore = score; 
+	}
+	previousScore = score; 
 	if (App->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN) {
 		gameOver = false;
 		ballsCounter = 3;
+		score = 0; 
+		comboCounter = 0; 
 	}
 
 }
