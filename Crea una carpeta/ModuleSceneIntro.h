@@ -28,6 +28,9 @@ public:
 	p2List<PhysBody*> circles;
 	PhysBody* board;
 	PhysBody* wall; 
+	PhysBody* flipperWallLeft;
+	PhysBody* flipperWallRight;
+
 
 	PhysBody* flipperLeft; 
 	PhysBody* flipperLeftAnchor;

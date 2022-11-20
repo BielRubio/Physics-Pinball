@@ -30,7 +30,7 @@ bool ModuleSceneIntro::Start()
 	App->renderer->camera.x = App->renderer->camera.y = 0;
 
 	// Load textures
-	circle = App->textures->Load("pinball/wheel.png"); 
+	//circle = App->textures->Load("pinball/wheel.png"); 
 
 	map = App->textures->Load("pinball/map.png");
 	bg = App->textures->Load("pinball/bg.png");
@@ -155,11 +155,47 @@ void ModuleSceneIntro::CreateBoard() {
 		400, 144
 	};
 
+	int fWallLeft[24]{
+		80, 598,  
+		80, 663, 
+		136, 689, 
+		142, 689, 
+		144, 686, 
+		143, 684, 
+		142, 675, 
+		105, 655, 
+		96, 646, 
+		96, 598, 
+		91, 592, 
+		86, 592, 
+	}; 
+
+	int fWallRight[24]{ 
+		307, 674, 
+		349, 651, 
+		352, 645, 
+		352, 598, 
+		357, 592, 
+		363, 592, 
+		368, 598, 
+		368, 663, 
+		313, 689, 
+		308, 689, 
+		305, 686, 
+		305, 677, 
+	}; 
+
 	board = App->physics->CreateChain(0, 0, GameBoard, 76);
 	board->body->SetType(b2_staticBody);
 	
 	wall = App->physics->CreateChain(0,0,boardWall,62); 
 	wall->body->SetType(b2_staticBody); 
+
+	flipperWallLeft = App->physics->CreateChain(0, 0, fWallLeft, 24); 
+	flipperWallLeft->body->SetType(b2_staticBody); 
+
+	flipperWallRight = App->physics->CreateChain(0, 0, fWallRight, 24);
+	flipperWallRight->body->SetType(b2_staticBody);
 
 	flipperLeftAnchor = App->physics->CreateCircle(137, 680, 6);
 	flipperLeft = App->physics->CreateFlipper(1, 112, 666, FlipperL, 20, 11, 11, 20.0f, 20.0f, -0.15f, 0.15f, flipperLeftAnchor->body);
