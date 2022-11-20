@@ -273,11 +273,18 @@ update_status ModuleSceneIntro::Update()
 
 	// Draw map
 	App->renderer->Blit(kicker1, kicker->GetPositionX(), kicker->GetPositionY());
-	App->renderer->Blit(map,0,0);
+	App->renderer->Blit(map, 0, 0);
 
 	//Kicker
-	scoreS = App->renderer->IntToConstChar(score); // Transform int to const char* (isnt working)
-	App->renderer->BlitText(200, 12, Font, scoreS);
+	//scoreS = App->renderer->IntToConstChar(score); // Transform int to const char* (isnt working)
+	sprintf_s(ScoreR, "%d", score);
+	sprintf_s(ScoreP, "%d", previousScore);
+	sprintf_s(ScoreH, "%d", highScore);
+	sprintf_s(BallsC, "%d", ballsCounter);
+	App->renderer->BlitText(200, 12, Font, ScoreR);
+	App->renderer->BlitText(5, 12, Font, ScoreP);
+	App->renderer->BlitText(400, 12, Font, ScoreH);
+	App->renderer->BlitText(470, 720, Font, BallsC);
 	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT && kicker->GetPositionY() <= 546 && kickerCharge == false && gameOver == false) {
 		kicker->body->SetLinearVelocity({ 0,1 });
 	}
