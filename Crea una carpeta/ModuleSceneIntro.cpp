@@ -33,6 +33,8 @@ bool ModuleSceneIntro::Start()
 
 	ball = App->textures->Load("pinball/ball.png"); 
 	flippers = App->textures->Load("pinball/flipper.png");
+	bumpers = App->textures->Load("pinball/bouncers.png");
+	wall_bumpers = App->textures->Load("pinball/wall_bouncer.png");
 	map = App->textures->Load("pinball/map.png");
 	bg = App->textures->Load("pinball/bg.png");
 	kicker1 = App->textures->Load("pinball/kicker.png");
@@ -47,10 +49,13 @@ bool ModuleSceneIntro::Start()
 	// Add this module (ModuleSceneIntro) as a listener for collisions with the sensor.
 	// In ModulePhysics::PreUpdate(), we iterate over all sensors and (if colliding) we call the function ModuleSceneIntro::OnCollision()
 	lower_ground_sensor->listener = this;
+	lower_ground_sensor->type = COLLIDER::FALL;
 
 	score = 0; 
 
 	CreateBoard(); 
+
+	SpawnBall();
 
 	return ret;
 }
@@ -305,6 +310,14 @@ update_status ModuleSceneIntro::Update()
 	App->renderer->Blit(flippers, flipperLeft->GetPositionX(), flipperLeft->GetPositionY(), &r1, 1.0f, -flipperLeft->GetRotation());
 	App->renderer->Blit(flippers, flipperRight->GetPositionX()-5, flipperRight->GetPositionY()-5, &r2, 1.0f, flipperRight->GetRotation());
 
+	//Draw bumpers
+
+	for (int i = 0; i < 2; i++) {
+		SDL_Rect r3 = { 0,0,80,80 };
+		App->renderer->Blit(bumpers, circleBumper[i]->GetPositionX(), circleBumper[i]->GetPositionY(), &r3);
+
+	}
+
 	// Prepare for raycast ------------------------------------------------------
 	
 	// The target point of the raycast is the mouse current position (will change over game time)
@@ -329,6 +342,7 @@ update_status ModuleSceneIntro::Update()
 		App->renderer->Blit(ball, x, y, NULL, 1.0f);
 		c = c->next;
 	}
+		
 
 	// Raycasts -----------------
 	if(ray_on == true)
@@ -353,18 +367,20 @@ update_status ModuleSceneIntro::Update()
 void ModuleSceneIntro::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 {
 	// Play Audio FX on every collision, regardless of who is colliding
-	App->audio->PlayFx(bonus_fx);
+	//App->audio->PlayFx(bonus_fx);
 
 	switch (bodyB->type) {
 	case COLLIDER::BUMPER:
-		score += 100; 
+		score += 100;
+
 	}
+
 	// Do something else. You can also check which bodies are colliding (sensor? ball? player?)
 }
 
 void ModuleSceneIntro::SpawnBall() {
 
-	circles.add(App->physics->CreateCircle(500, 500, 12));
+	circles.add(App->physics->CreateCircle(450, 500, 12));
 	circles.getLast()->data->listener = this;
 }
 
