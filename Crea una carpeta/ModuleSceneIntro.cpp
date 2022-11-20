@@ -31,8 +31,6 @@ bool ModuleSceneIntro::Start()
 
 	// Load textures
 	circle = App->textures->Load("pinball/wheel.png"); 
-	box = App->textures->Load("pinball/crate.png");
-	rick = App->textures->Load("pinball/rick_head.png");
 
 	map = App->textures->Load("pinball/map.png");
 	bg = App->textures->Load("pinball/bg.png");
@@ -81,10 +79,91 @@ void ModuleSceneIntro::CreateBoard() {
 		6, 6,
 	};
 
-	flipperLeftAnchor = App->physics->CreateCircle(120, 673, 6);
+	int GameBoard[76] = {
+		0, 0,
+		512, 0,
+		512, 768,
+		288, 768,
+		288, 736,
+		396, 683,
+		400, 676,
+		400, 560,
+		352, 513,
+		352, 511,
+		383, 448,
+		400, 448,
+		400, 368,
+		432, 368,
+		432, 608,
+		464, 608,
+		464, 132,
+		458, 112,
+		446, 91,
+		433, 77,
+		414, 63,
+		401, 55,
+		374, 48,
+		125, 48,
+		91, 61,
+		68, 81,
+		54, 109,
+		48, 128,
+		48, 448,
+		66, 448,
+		96, 511,
+		96, 513,
+		48, 560,
+		48, 675,
+		57, 688,
+		160, 736,
+		160, 768,
+		0, 768
+	};
+
+	int boardWall[62]{
+		400, 320,
+		432, 320, 
+		432, 139, 
+		428, 125, 
+		416, 106, 
+		400, 91,
+		385, 86,
+		367, 80,
+		306, 80, 
+		285, 86, 
+		276, 91, 
+		264, 99, 
+		255, 110,
+		250, 117, 
+		244, 131, 
+		240, 146, 
+		240, 164, 
+		245, 172, 
+		252, 176,
+		260, 176, 
+		267, 172, 
+		272, 164, 
+		272, 144,
+		276, 133, 
+		287, 120, 
+		297, 115, 
+		304, 112, 
+		368, 112, 
+		377, 115, 
+		393, 129, 
+		400, 144
+	};
+
+	board = App->physics->CreateChain(0, 0, GameBoard, 76);
+	board->body->SetType(b2_staticBody);
+	
+	wall = App->physics->CreateChain(0,0,boardWall,62); 
+	wall->body->SetType(b2_staticBody); 
+
+	flipperLeftAnchor = App->physics->CreateCircle(137, 680, 6);
 	flipperLeft = App->physics->CreateFlipper(1, 112, 666, FlipperL, 20, 11, 11, 20.0f, 20.0f, -0.15f, 0.15f, flipperLeftAnchor->body);
 
-	flipperRightAnchor = App->physics->CreateCircle(329, 673, 6);
+	flipperRightAnchor = App->physics->CreateCircle(311, 680, 6);
 	flipperRight = App->physics->CreateFlipper(0, 321, 666, FlipperR, 20, 42, 11, 20.0f, -20.0f, -0.15f, 0.15f, flipperRightAnchor->body);
 }
 
@@ -131,53 +210,6 @@ update_status ModuleSceneIntro::Update()
 		circles.getLast()->data->listener = this;
 	}
 
-	// If user presses 2, create a new box object
-	if(App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN)
-	{
-		boxes.add(App->physics->CreateRectangle(App->input->GetMouseX(), App->input->GetMouseY(), 100, 50));
-	}
-
-	// If user presses 3, create a new RickHead object
-	if(App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN)
-	{
-		// Pivot 0, 0
-		int rick_head[64] = {
-			14, 36,
-			42, 40,
-			40, 0,
-			75, 30,
-			88, 4,
-			94, 39,
-			111, 36,
-			104, 58,
-			107, 62,
-			117, 67,
-			109, 73,
-			110, 85,
-			106, 91,
-			109, 99,
-			103, 104,
-			100, 115,
-			106, 121,
-			103, 125,
-			98, 126,
-			95, 137,
-			83, 147,
-			67, 147,
-			53, 140,
-			46, 132,
-			34, 136,
-			38, 126,
-			23, 123,
-			30, 114,
-			10, 102,
-			29, 90,
-			0, 75,
-			30, 62
-		};
-
-		ricks.add(App->physics->CreateChain(App->input->GetMouseX(), App->input->GetMouseY(), rick_head, 64));
-	}
 
 	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN)
 	{
@@ -215,37 +247,6 @@ update_status ModuleSceneIntro::Update()
 		if(c->data->Contains(App->input->GetMouseX(), App->input->GetMouseY()))
 			App->renderer->Blit(circle, x, y, NULL, 1.0f, c->data->GetRotation());
 
-		c = c->next;
-	}
-
-	// Boxes
-	c = boxes.getFirst();
-	while(c != NULL)
-	{
-		int x, y;
-		c->data->GetPosition(x, y);
-
-		// Always paint boxes texture
-		App->renderer->Blit(box, x, y, NULL, 1.0f, c->data->GetRotation());
-
-		// Are we hitting this box with the raycast?
-		if(ray_on)
-		{
-			// Test raycast over the box, return fraction and normal vector
-			int hit = c->data->RayCast(ray.x, ray.y, mouse.x, mouse.y, normal.x, normal.y);
-			if(hit >= 0)
-				ray_hit = hit;
-		}
-		c = c->next;
-	}
-
-	// Rick Heads
-	c = ricks.getFirst();
-	while(c != NULL)
-	{
-		int x, y;
-		c->data->GetPosition(x, y);
-		App->renderer->Blit(rick, x, y, NULL, 1.0f, c->data->GetRotation());
 		c = c->next;
 	}
 

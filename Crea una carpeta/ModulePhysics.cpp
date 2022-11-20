@@ -40,9 +40,6 @@ bool ModulePhysics::Start()
 	// Set this module as a listener for contacts
 	world->SetContactListener(this);
 
-	// Create the main static ground of the scenario: a big circle in the middle of the screen
-	CreateScenarioGround();
-
 	// Create a static, shapeless ground body
 	// This will be used to create joints like a mouse joint
 	b2BodyDef bd;
