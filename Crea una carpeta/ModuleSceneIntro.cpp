@@ -54,6 +54,7 @@ bool ModuleSceneIntro::Start()
 
 	score = 0; 
 	ballsCounter = 3; 
+	comboCounter = 0; 
 
 	CreateBoard(); 
 
@@ -218,9 +219,11 @@ void ModuleSceneIntro::CreateBoard() {
 
 	flipperLeftAnchor = App->physics->CreateCircle(137, 680, 6);
 	flipperLeft = App->physics->CreateFlipper(1, 137, 680, FlipperL, 20, 11, 11, 20.0f, 20.0f, -0.15f, 0.15f, flipperLeftAnchor->body);
+	flipperLeft->type = COLLIDER::FLIPPER; 
 
 	flipperRightAnchor = App->physics->CreateCircle(311, 680, 6);
 	flipperRight = App->physics->CreateFlipper(0, 311, 680, FlipperR, 20, 42, 11, 20.0f, -20.0f, -0.15f, 0.15f, flipperRightAnchor->body);
+	flipperRight->type = COLLIDER::FLIPPER;
 
 	circleBumper[0] = App->physics->CreateBumper(144, 224, 32); 
 	circleBumper[1] = App->physics->CreateBumper(330, 224, 32);
@@ -323,6 +326,8 @@ update_status ModuleSceneIntro::Update()
 	}
 
 	UpdateBall(); 
+
+	UpdateScore(); 
 	//Draw flippers
 	
 	SDL_Rect r1 = { 0,0,59,16 };
@@ -341,6 +346,9 @@ update_status ModuleSceneIntro::Update()
 		App->renderer->Blit(smallBumpers, circleBumper[i]->GetPositionX() + 16, circleBumper[i]->GetPositionY() + 16);
 
 	}
+
+	//Draw score
+
 
 	// Prepare for raycast ------------------------------------------------------
 	
@@ -399,8 +407,19 @@ void ModuleSceneIntro::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 
 	switch (bodyB->type) {
 	case COLLIDER::BUMPER:
+		comboCounter++;
 		score += 100;
-
+		if (comboCounter >= 3 && comboCounter < 6 ) {
+			score += 100; 
+		}
+		else if (comboCounter >= 6 && comboCounter < 9) {
+			score += 200; 
+		}
+		else if (comboCounter >= 9 && comboCounter < 12) {
+			score += 400; 
+		}
+	case COLLIDER::FLIPPER:
+		comboCounter = 0; 
 	}
 
 	// Do something else. You can also check which bodies are colliding (sensor? ball? player?)
@@ -427,6 +446,10 @@ void ModuleSceneIntro::UpdateBall() {
 }
 
 void ModuleSceneIntro::GameOver() {
+
+}
+
+void ModuleSceneIntro::UpdateScore() {
 
 }
 
