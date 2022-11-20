@@ -37,6 +37,9 @@ public:
 	PhysBody* flipperRight;
 	PhysBody* flipperRightAnchor;
 
+	PhysBody* circleBumper[5]; 
+	PhysBody* wallBumper; 
+
 	PhysBody* kicker;
 	int kickerX = 448, kickerY = 530;
 	bool kickerCharge = false;

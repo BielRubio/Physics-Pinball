@@ -30,7 +30,7 @@ bool ModuleSceneIntro::Start()
 	App->renderer->camera.x = App->renderer->camera.y = 0;
 
 	// Load textures
-	//circle = App->textures->Load("pinball/wheel.png"); 
+	ball = App->textures->Load("pinball/ball.png"); 
 
 	map = App->textures->Load("pinball/map.png");
 	bg = App->textures->Load("pinball/bg.png");
@@ -202,6 +202,8 @@ void ModuleSceneIntro::CreateBoard() {
 
 	flipperRightAnchor = App->physics->CreateCircle(311, 680, 6);
 	flipperRight = App->physics->CreateFlipper(0, 321, 666, FlipperR, 20, 42, 11, 20.0f, -20.0f, -0.15f, 0.15f, flipperRightAnchor->body);
+
+	circleBumper[0] = App->physics->CreateBumper(300, 200, 16); 
 
 	kicker = App->physics->CreateRectangle(kickerX, kickerY, 31, 60); 
 	kicker->body->SetGravityScale(0);
