@@ -124,16 +124,25 @@ update_status ModuleSceneIntro::Update()
 		ray.x = App->input->GetMouseX();
 		ray.y = App->input->GetMouseY();
 	}
-	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT && kicker->GetPositionY() <= 650) {
+	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT && kicker->GetPositionY() <= 650 && kickerCharge == false) {
 		kicker->body->SetLinearVelocity({ 0,1 });
 	}
 	else {
+		if (kickerCharge == false && kicker->GetPositionY() >= 650) {
+			kicker->body->SetLinearVelocity({ 0,0 });
+			if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_IDLE) {
+				kickerCharge = true;
+			}
+		}
+	}
+	if (kickerCharge == true) {
+		kicker->body->SetLinearVelocity({ 0,-5 });
+	}
+	if (kicker->GetPositionY() <= kickerY && kickerCharge == true) {
 		kicker->body->SetLinearVelocity({ 0,0 });
+		kicker->body->SetTransform({PIXEL_TO_METERS(448),PIXEL_TO_METERS(637) }, 0.0f);
+		kickerCharge = false;
 	}
-	if (App->input->GetKey(SDL_SCANCODE_SPACE) != KEY_REPEAT && kicker->GetPositionY() != kickerY) {
-		//kicker->body->SetLinearVelocity({ 0,(kicker->GetPositionY()-kickerY) });
-	}
-
 	// If user presses 1, create a new circle object
 	if(App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
 	{
